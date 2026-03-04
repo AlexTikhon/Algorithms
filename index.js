@@ -1,4 +1,4 @@
-function factorial(n) {
+﻿function factorial(n) {
   if (n < 0) {
     throw new Error("Negative numbers do not have a factorial.");
   }
@@ -157,4 +157,17 @@ function merge(left, right) {
   return merged.concat(left.slice(i)).concat(right.slice(j));
 }
 
-module.exports = { factorial, fibonacci, palindrome, binarySearch, sorting, selectionSort, bubbleSort, quickSort, mergeSort, reverseString, arrayWithoutDuplicates };
+module.exports = {
+  factorial,
+  fibonacci,
+  palindrome,
+  binarySearch,
+  sorting,
+  selectionSort,
+  bubbleSort,
+  quickSort,
+  mergeSort,
+  reverseString,
+  arrayWithoutDuplicates,
+  arrayWithoutDuplicates2,
+};

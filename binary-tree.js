@@ -1,4 +1,4 @@
-class binarySearchTree {
+﻿class BinarySearchTree {
   constructor(value) {
     this.value = value;
     this.left = null;
@@ -8,13 +8,13 @@ class binarySearchTree {
   insert(value) {
     if (value < this.value) {
       if (this.left === null) {
-        this.left = new binarySearchTree(value);
+        this.left = new BinarySearchTree(value);
       } else {
         this.left.insert(value);
       }
     } else {
       if (this.right === null) {
-        this.right = new binarySearchTree(value);
+        this.right = new BinarySearchTree(value);
       } else {
         this.right.insert(value);
       }
@@ -67,3 +67,5 @@ class binarySearchTree {
     return count;
   }
 }
+
+module.exports = { BinarySearchTree };
