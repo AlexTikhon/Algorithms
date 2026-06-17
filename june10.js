@@ -248,3 +248,152 @@ function firstUniqueCharacter(str) {
 
 	return -1;
 }
+
+
+																				// Linked List
+class Node {};
+//Reverse Linked List
+function reverseList(head) {
+	let prev = null;
+	let curr = head;
+
+	while (curr) {
+		const next = curr.next;
+		curr.next = prev;
+		prev = curr;
+		curr = next;
+	}
+
+	return prev;
+}
+//Linked List Cycle
+function hasCycle(head) {
+	let slow = head;
+	let fast = head;
+
+	while (fast && fast.next) {
+		slow = slow.next;
+		fast = fast.next.next;
+
+		if (slow === fast) return true;
+	}
+	return false;
+};
+//
+function removeNthFromEnd(head, n){
+	const dummy = new Node();
+	let slow = dummy;
+	let fast = dummy;
+
+	for (let i = 0; i <= n; i++) {
+		fast = fast.next;
+	}
+
+	while(fast) {
+		slow = slow.next;
+		fast = fast.next;
+	}
+
+	slow.next = slow.next.next;
+
+	return dummy.next;
+}
+//reverse list - recursive
+function reverseListRecursive(head) {
+	if (!head || !head.next) return head;
+
+	const newHead = reverseListRecursive(head.next);
+
+	head.next.next = head;
+	head.next = null;
+	return newHead;
+}
+// sum of all digits - recursive
+function sumDigits(num) {
+	if (num < 10) return num;
+	return (num % 10) + sumDigits(Math.floor(num / 10));
+}
+
+
+
+
+
+
+//																					React
+//Race conditions can happen when multiple async requests are running and an older response arrives after a newer one
+useEffect(() => {
+  const controller = new AbortController();
+
+  const load = async () => {
+    try {
+      const res = await fetch(`/api/search?q=${query}`, {
+        signal: controller.signal,
+      });
+
+      const data = await res.json();
+      setData(data);
+    } catch (error) {
+      if (error.name !== 'AbortError') {
+        setError(error);
+      }
+    }
+  };
+
+  load();
+
+  return () => controller.abort();
+}, [query]);
+
+// IntersectionObserver -infinite scroll, lazy loading img
+useEffect(() => {
+  const observer = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) loadMore();
+  });
+
+  observer.observe(ref.current);
+  return () => observer.disconnect();
+}, []);
+
+//ResizeObserver -show height and width of the elem in real time
+import { useEffect, useRef, useState } from "react";
+export function ResizeBox() {
+  const ref = useRef(null);
+  const [size, setSize] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    if (!ref.current) return;
+
+    const observer = new ResizeObserver(entries => {
+      const entry = entries[0];
+      const { width, height } = entry.contentRect;
+      setSize({ width, height });
+    });
+
+    observer.observe(ref.current);
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div>
+      <div
+        ref={ref}
+        style={{
+          resize: "both",
+          overflow: "auto",
+          padding: 20,
+          border: "1px solid #ccc",
+          width: 200,
+          height: 150
+        }}
+      >
+        Resize me!
+      </div>
+
+      <p>Width: {size.width}px</p>
+      <p>Height: {size.height}px</p>
+    </div>
+  );
+}
+
+
