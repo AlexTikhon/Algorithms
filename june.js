@@ -396,4 +396,22 @@ export function ResizeBox() {
   );
 }
 
+//Render Props / Children‑as‑a‑Function
+function Fetch({ url, children }) {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch(url).then(r => r.json()).then(setData);
+  }, [url]);
+
+  return children(data);
+}
+<Fetch url="/api/user">
+  {data => data ? <UserCard user={data} /> : <Spinner />}
+</Fetch>
+
+
+
+
+
 
